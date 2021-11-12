@@ -67,6 +67,7 @@ def start_job(tenant_name, account_logical_name, auth, release_key,\
     data2['startInfo'] = startInfo
     json_data = json.dumps(data2)
 
+    print('sending uipath process post request')
     r2 = requests.post(f"https://platform.uipath.com/{account_logical_name}/{tenant_name}/odata/Jobs/UiPath.Server.Configuration.OData.StartJobs",\
                     data = json_data, headers = headers2)
 
@@ -78,6 +79,7 @@ def start_job(tenant_name, account_logical_name, auth, release_key,\
         print(e)
         process_id = -1
 
+    '''
     # wait for bot response
     while True:
         req_process_releasekey = requests.get(f"https://platform.uipath.com/{account_logical_name}/{tenant_name}/odata/Jobs?$filter=Id eq {process_id}",\
@@ -87,8 +89,10 @@ def start_job(tenant_name, account_logical_name, auth, release_key,\
         if state!='Running':
             print('status: \n' + str(req_process_releasekey.json()))
             break
-                    
+                 
     return req_process_releasekey.json()
+    '''
+    return r2.json()
 
 
 def default_start_process(client_id, refresh_token, tenant_name,\

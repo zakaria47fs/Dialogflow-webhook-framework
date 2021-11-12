@@ -20,8 +20,6 @@ def webhook():
     param_bool = request.headers.get('param_bool')
     param_bool = bool( str(param_bool).lower() == 'true')
 
-    print(query_result)
-
     chatbot_parameters = query_result.get('parameters')
 
     process_response = default_start_process(client_id, refresh_token, tenant_name,\
@@ -32,18 +30,16 @@ def webhook():
 
     print(process_response)
     
-    fulfillment_text = 'Hi'
+    fulfillment_text = ''
     #if query_result.get('action')=='create_event':
     #    event_name = query_result.get('parameters').get('event_name')
-    fulfillment_text = process_response
+    #fulfillment_text = process_response
 
     response = {
                 "fulfillmentText": fulfillment_text,
                 "source": "webhookdata"
                }
     
-    print(response)
-
     return response
 
 
