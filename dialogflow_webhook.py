@@ -6,6 +6,11 @@ import json
 app = Flask(__name__)
 
 
+@app.route('/test', methods=['GET'])
+def test():
+    return 'Test correct'
+
+
 @app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
 
