@@ -67,6 +67,26 @@ def start_job(tenant_name, account_logical_name, auth, release_key,\
 
     print(r2.content)
 
+    '''
+    #
+    try:
+        process_id = r2.json().get('value')[0].get('Id')
+    except Exception as e:
+        print(e)
+        process_id = -1
+    
+    # wait for bot response
+    while True:
+        req_process_releasekey = requests.get(f"https://platform.uipath.com/{account_logical_name}/{tenant_name}/odata/Jobs?$filter=Id eq {process_id}",\
+                                        headers={"Authorization": auth})        
+        state = req_process_releasekey.json().get('value')[0].get('State')
+        
+        if state!='Running':
+            print('status: \n' + str(req_process_releasekey.json()))
+            break
+                 
+    return req_process_releasekey.json()
+    '''
     return r2.json()
 
 
